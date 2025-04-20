@@ -61,7 +61,6 @@ export class KafkaBroker implements MessageBroker {
           // Todo: Decide whether to send notification or not .. // according to event_type
           const transport = createNotificationTransport("mail");
           const order = JSON.parse(message.value.toString());
-          console.log(order);
           await transport.send({
             // Todo: change "to" from order details
             to: "raj819314@gmail.com",
