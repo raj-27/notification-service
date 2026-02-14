@@ -2,7 +2,8 @@ import { Consumer, EachMessagePayload, Kafka, KafkaConfig } from "kafkajs";
 import { MessageBroker } from "../types/broker";
 import { createNotificationTransport } from "../factories/notification-factory";
 import { handleOrderHtml, handleOrderText } from "../handlers/orderHandler";
-import config from "config";
+import { Config } from ".";
+
 export class KafkaBroker implements MessageBroker {
   private consumer: Consumer;
 
@@ -19,8 +20,8 @@ export class KafkaBroker implements MessageBroker {
         connectionTimeout: 45000,
         sasl: {
           mechanism: "plain",
-          username: config.get("kafka.sasl.username"),
-          password: config.get("kafka.sasl.password"),
+          username: Config.KAFKA_SASL_USERNAME,
+          password: Config.KAFKA_SASL_PASSWORD,
         },
       };
     }

@@ -1,5 +1,6 @@
-import config from "config";
 import { OrderEvents, PaymentMode } from "../types";
+import { Config } from "../config";
+
 export const handleOrderText = (order) => {
   // todo: put proper check logic
   const { data: Order, event_type } = order;
@@ -21,7 +22,7 @@ export const handleOrderHtml = (order) => {
   ) {
     return `
             <h2>Thank you for your order</h2>
-            <h4>Your Order id is: <a href="${config.get("frontend.clientUrl")}/order/${Order._id}"> ${Order._id}</a></h4>
+            <h4>Your Order id is: <a href="${Config.CLIENT_BASE_URL}/order/${Order._id}"> ${Order._id}</a></h4>
       `;
   }
   return "Thank you for your order";

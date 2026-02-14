@@ -1,30 +1,30 @@
 import nodemailer, { Transporter } from "nodemailer";
 import { Message, NotificationTransport } from "./types/notification-types";
-import config from "config";
+import { Config } from "./config";
+
 export class MailTransport implements NotificationTransport {
   private transporter: Transporter;
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: config.get("mail.host"),
+      host: Config.SMTP_HOST,
       port: 587,
       secure: false, // true for port 465, false for other ports
       auth: {
-        user: config.get("mail.auth.user"),
-        pass: config.get("mail.auth.password"),
+        user: Config.SMTP_USERNAME,
+        pass: Config.SMTP_PASSWORD,
       },
     });
   }
   async send(message: Message): Promise<void> {
     try {
       // Send the message via email
-      const info = await this.transporter.sendMail({
-        from: config.get("mail.from"),
+      await this.transporter.sendMail({
+        from: Config.SMTP_FROM_EMAIL,
         to: message.to,
         subject: message.subject,
         text: message.text,
         html: message.html,
       });
-      console.log("Message sent: ", info.messageId);
     } catch (error) {
       console.log(error);
     }
