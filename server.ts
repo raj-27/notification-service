@@ -20,7 +20,7 @@ const startServer = async () => {
         brokers: process.env.KAFKA_BROKERS,
       });
     })
-    .catch((err: any) => {
+    .catch((err) => {
       logger.error("Kafka consumer connection failed", {
         error: err,
         message: err?.message,
@@ -36,7 +36,7 @@ const startServer = async () => {
         topics: Config.KAFKA_TOPICS,
       });
     })
-    .catch(async (err: any) => {
+    .catch(async (err) => {
       logger.error("Kafka subscription failed", {
         error: err,
         message: err?.message,
